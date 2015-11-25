@@ -579,14 +579,13 @@ def load_sbd_model(model_path = 'model_nb/', use_svm=False):
     return model
 
 def sbd_text(model, text, do_tok=True):
-    """
+    """ 
     A hook for segmenting text in Python code:
 
     import sbd
     m = sbd.load_sbd_model('/u/dgillick/sbd/splitta/test_nb/', use_svm=False)
     sents = sbd.sbd_text(m, 'Here is. Some text')
     """
-
     data = get_text_data(text, expect_labels=False, tokenize=True)
     data.featurize(model, verbose=False)
     model.classify(data, verbose=False)
@@ -649,14 +648,22 @@ if __name__ == '__main__':
         model = build_model(options.train, options)
 
     if not options.test: sys.exit()
-
+ 
     ## test
+
     if not options.train:
         if 'svm' in options.model_path: options.svm = True
+        #print options.model_path, options.svm
         model = load_sbd_model(options.model_path, options.svm)
     if options.output: options.output = open(options.output, 'w')
 
+
+    #print options.test
+    print options.test
+    print model
     test = get_data(options.test, tokenize=True)
     test.featurize(model, verbose=True)
     model.classify(test, verbose=True)
-    test.segment(use_preds=True, tokenize=options.tokenize, output=options.output)
+    
+    #test.segment(use_preds=True, tokenize=options.tokenize, output=options.output)
+    

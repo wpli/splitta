@@ -62,6 +62,7 @@ def tokenize(s):
     """
     Tokenize a string using the rule above
     """
+    
     for (regexp, repl) in _tokenize_regexps:
         s = regexp.sub(repl, s)
     return s
